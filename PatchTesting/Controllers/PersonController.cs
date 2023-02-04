@@ -33,13 +33,6 @@ namespace PatchTesting.Controllers
 
         };
 
-        private readonly ILogger<PersonController> _logger;
-
-        public PersonController(ILogger<PersonController> logger)
-        {
-            _logger = logger;
-        }
-
         [HttpGet]
         public ActionResult<List<Person>> Get()
         {
@@ -50,10 +43,10 @@ namespace PatchTesting.Controllers
         public IActionResult JsonPatchWithModelState(int id, [FromBody] JsonPatchDocument<Person> patchDoc)
         {
             var person = People.FirstOrDefault(c => c.Id == id);
-
+            //Automaticly update only the values that were sent in the patch obj
             patchDoc.ApplyTo(person);
 
-            return Ok(People);
+            return Ok(person);
         }
     }
 }

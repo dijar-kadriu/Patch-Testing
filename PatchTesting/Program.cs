@@ -4,6 +4,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers(options =>
 {
+    // Use the JsonPatch formater
     options.InputFormatters.Insert(0, MyJPIF.GetJsonPatchInputFormatter());
 });
 
